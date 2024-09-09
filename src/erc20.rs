@@ -3,11 +3,7 @@ use alloc::string::String;
 use alloy_primitives::{Address, U256};
 use alloy_sol_types::sol;
 use core::marker::PhantomData;
-use stylus_sdk::{
-    evm,
-    msg,
-    prelude::*,
-};
+use stylus_sdk::{evm, msg, prelude::*};
 
 pub trait Erc20Params {
     /// Immutable token name
@@ -56,12 +52,7 @@ pub enum Erc20Error {
 impl<T: Erc20Params> Erc20<T> {
     /// Movement of funds between 2 accounts
     /// (invoked by the external transfer() and transfer_from() functions )
-    pub fn _transfer(
-        &mut self,
-        from: Address,
-        to: Address,
-        value: U256,
-    ) -> Result<(), Erc20Error> {
+    pub fn _transfer(&mut self, from: Address, to: Address, value: U256) -> Result<(), Erc20Error> {
         // Decreasing sender balance
         let mut sender_balance = self.balances.setter(from);
         let old_sender_balance = sender_balance.get();
